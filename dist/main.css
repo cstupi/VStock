@@ -1,0 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.full-width {
+  width: 100%
+}
+body{
+  color: gray;
+}
+.center-content {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
