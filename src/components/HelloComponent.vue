@@ -28,6 +28,7 @@
 </template>
 <script>
 import { Login, Game } from '../api/auth'
+import axios from 'axios'
 export default {
   props: {
     name: {
@@ -53,6 +54,8 @@ export default {
       let game = await Game()
       console.log(game)
       this.games = game
+      let t = await axios.get('https://www.eaze.com/api/menus/default?place_id=ChIJy1uBGAmfj4ARQMbl0CP4wVA')
+      console.log(t)
     }
   }
 }
