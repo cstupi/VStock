@@ -1,10 +1,8 @@
 <template>
   <div>
     <ul>
-      <li
-        v-for="game in games"
-        :key="game.Id">
-        {{ game.Name }}
+      <li>
+        Game VIEW HERE
       </li>
     </ul>
   </div>
@@ -12,7 +10,17 @@
 <script>
 import Game from '../api/game'
 export default {
+  props: {
 
+  },
+  data: function() {
+    return {
+
+    }
+  },
+  methods: {
+    
+  }
 }
 </script>
 <style scoped>

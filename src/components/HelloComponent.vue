@@ -3,7 +3,6 @@
   <div>
     <h1>Hello {{ name }}!</h1>
     <div>{{ message }} PERSON</div>
-    <button @click="message++">Click Me</button>
     <div>
       <input
         v-model="username" 
@@ -16,7 +15,7 @@
         type="password"
       >
     </div>
-    <button @click="test('whoa')">{{ this.$store.state.count }}</button>
+    <button @click="Login()">Login</button>
     <ul>
       <li 
         v-for="game in games" 
@@ -38,24 +37,24 @@ export default {
   },
   data: function(){
     return {
-      message: this.$store.state.count,
+      message: "",
       games: [],
       username: "",
       password: ""
     }
   },
+  mounted: function (){
+    this.message = this.$store.User ? this.$store.User.Email :  ""
+  },
   methods: {
-    test: async function(test) {
+    Login: async function() {
       this.$store.commit('increment')
       console.log(this.$store.state.count)
       console.log(this)
       let res = await Login(this.username, this.password)
-      console.log(res)
-      let game = await Game()
-      console.log(game)
-      this.games = game
-      let t = await axios.get('https://www.eaze.com/api/menus/default?place_id=ChIJy1uBGAmfj4ARQMbl0CP4wVA')
-      console.log(t)
+      this.$store.commit('SET_USER',res);
+      this.message = this.$store.state.User.Email
+      console.log(this.$store.User)
     }
   }
 }
