@@ -8,8 +8,8 @@ export async function Login(user, password){
     throw `User and Password required`
   let res = await axios.post(`${url}/api/user/login`,{ "Email": user, "Password": password})
   if(res.status === 200){
-    console.log(res.data)
     localStorage.token = res.data.Token
+    localStorage.User = JSON.stringify(res.data)
     return res.data
   }
   if(res.status === 401)

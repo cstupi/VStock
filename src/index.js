@@ -1,30 +1,19 @@
 import "@babel/polyfill";
 import Vue from 'vue'
-import Vuex from 'vuex'
 import App from './App.vue'
+import store from './store'
+import router from './router'
+import axios from 'axios'
+
 import './assets/app.css'
 
-Vue.use(Vuex)
+Vue.prototype.$http = axios
+const token = localStorage.getItem('token')
+if(token)
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = token
 
-const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    }
-  }
-})
-store.commit('increment')
-
-console.log(store.state.count) // -> 1
-
-var app = new Vue({
-    el: '#app',
+new Vue({
+    router,
     store,
-    data: {
-      message: 'TESTING'
-    },
     render: h => h(App)
-})
+}).$mount('#app')
