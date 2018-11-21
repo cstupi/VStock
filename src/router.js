@@ -10,22 +10,28 @@ import Profile from './components/Profile.vue'
 
 Vue.use(Router)
 let router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home
     },
-    { path: '*', component: Login },
-    {
-      path: 'login',
-      name: 'login',
-      compontent: Login
-    },
     {
       path: 'register',
       name: 'register',
-      component: Register
+      component: Register,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: 'login',
+      name: 'login',
+      component: Login,
+      meta: {
+        requiresAuth: false
+      }
     },
     {
       path: '/profile',
@@ -39,18 +45,16 @@ let router = new Router({
 })
 
 router.beforeEach((to,from,next) => {
-  if(to.matched.some(record => record.meta.requiresAuth)) {
+  console.log(to.matched)
+  if(to.matched.some(record => record.meta.requiresAuth === false)) {
+    next() 
+    return
+  } else {
     if(store.getters.isLoggedIn){
-      console.log('This required auth')
       next()
       return
     }
-    console.log('auth failure')
-    next('login')
-  } else {
-    console.log('no auth needed')
-    console.log(to.matched)
-    next() 
+    next({ name: 'login'})
   }
 })
 export default router
