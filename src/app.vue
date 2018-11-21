@@ -1,12 +1,14 @@
 <template>
   <div class="center-content">
     <div>
-      <router-link :to="{ name: 'home' }">Home</router-link> |
-      <router-link :to="{ name: 'login' }">Login</router-link> |
-      <router-link :to="{ name: 'register' }">Register</router-link>
-      <span v-if="isLoggedIn"> | 
-        <a @click="logout">Logout</a> |
-        <router-link :to="{ name: 'profile' }">Profile</router-link>
+      <span v-if="!isLoggedIn">
+        <router-link :to="{ name: 'login' }">Login</router-link> |
+        <router-link :to="{ name: 'register' }">Register</router-link>
+      </span>
+      <span v-if="isLoggedIn"> 
+        <router-link :to="{ name: 'home' }">Home</router-link> |
+        <router-link :to="{ name: 'profile' }">Profile</router-link> |
+        <a @click="logout">Logout</a>
       </span>
     </div>
     <div>
