@@ -2,8 +2,7 @@
   <div class="center-content">
     <div>
       <span v-if="!isLoggedIn">
-        <router-link :to="{ name: 'login' }">Login</router-link> |
-        <router-link :to="{ name: 'register' }">Register</router-link>
+        <router-link :to="{ name: 'login' }">Login</router-link>
       </span>
       <span v-if="isLoggedIn"> 
         <router-link :to="{ name: 'home' }">Home</router-link> |
@@ -35,7 +34,7 @@ export default {
   methods: {
     logout: async function() {
       console.log('Logging out')
-      await this.$store.dispatch('logout')
+      await this.$store.dispatch('Logout')
       this.$router.push('/login')
     }
   }

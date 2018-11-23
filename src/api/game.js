@@ -3,18 +3,16 @@ import config from '~/config.js';
 'use strict';
 var url = config.Api;
 
-export async function ListGames(){
-  let res = await axios.get(`${url}/api/game`,
-    { headers: { 'Authorization': `${localStorage.token}` } }
-  )
+export async function ListGames(userId){
+  let u = userId ? `${url}/api/game?user=${userId}` : `${url}/api/game`
+  let res = await axios.get(u)
   if(res.status === 401)
     throw `Unauthenticated`
   return res.data;
 }
 
 export async function GetGame(id){
-  let res = await axios.get(`${url}/api/game/${id}`,
-    { headers: { 'Authorization': `${localStorage.token}` } });
+  let res = await axios.get(`${url}/api/game/${id}`);
   if(res.status == 200)
     return res.data
   if(res.status == 500)
@@ -25,9 +23,7 @@ export async function GetGame(id){
 } 
 export async function CreateGame(name, startingValue, password){
   let res = await axios.post(`${url}/api/game`,
-    { Name: name, StartingValue: startingValue, Password: password },
-    { headers: { 'Authorization': localStorage.token } } 
-  )
+    { Name: name, StartingValue: startingValue, Password: password })
   if(res.status === 401)
     throw `Unauthenticated`
   if(res.status === 200)
