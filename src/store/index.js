@@ -17,7 +17,7 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || '',
     user: JSON.parse(localStorage.getItem('User') || null) || {},
     games: {},
-    activeGame: '',
+    activeGame: ''
   },
   mutations: {
     auth_request(state){
