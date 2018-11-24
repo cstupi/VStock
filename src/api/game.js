@@ -30,9 +30,21 @@ export async function CreateGame(name, startingValue, password){
     return res.data
   throw `Error creating game: ${res}`
 }
-
+export async function JoinGame(gameId) {
+  let res = await axios.post(`${url}/api/GameMember`, 
+    { Game: gameId, IsAdmin: false })
+  if(res.status === 401)
+    throw `Unauthenticated`
+}
+export async function LeaveGame(gameId){
+  let res = await axios.delete(`${url}/api/GameMember/${gameId}`)
+  if(res.status === 401)
+    throw `Unauthenticated`
+}
 export default {
   ListGames,
   GetGame,
-  CreateGame
+  CreateGame,
+  JoinGame,
+  LeaveGame
 }
