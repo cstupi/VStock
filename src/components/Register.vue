@@ -53,7 +53,7 @@ export default {
         this.message = 'Passwords do not match'
       } else {
         this.message = 'Loading'
-        let res = await this.$store.dispatch('register', data)
+        let res = await this.$store.dispatch('Register', data)
         this.message = ''
       }
     }

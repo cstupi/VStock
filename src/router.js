@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import store from './store'
 // Import login and register components
 import Home from './pages/Home.vue'
-import Login from './components/Login.vue'
+import SignIn from './pages/SignIn.vue'
 import Register from './components/Register.vue'
 import Profile from './components/Profile.vue'
 
@@ -28,7 +28,7 @@ let router = new Router({
     {
       path: 'login',
       name: 'login',
-      component: Login,
+      component: SignIn,
       meta: {
         requiresAuth: false
       }

@@ -38,7 +38,7 @@ export default {
       let password = this.password
       try {
         console.log(email)
-        await this.$store.dispatch('login', { email, password })
+        await this.$store.dispatch('Login', { email, password })
         this.$router.push('/')
       } catch(err){
         console.log(err)
