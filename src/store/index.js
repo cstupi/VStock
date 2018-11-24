@@ -18,7 +18,6 @@ export default new Vuex.Store({
     user: JSON.parse(localStorage.getItem('User') || null) || {},
     games: {},
     activeGame: '',
-    
   },
   mutations: {
     auth_request(state){
@@ -113,6 +112,20 @@ export default new Vuex.Store({
         return await Game.ListGames()
       } catch(err) {
         throw err
+      }
+    },
+    async JoinGame({ commit }, gameId){
+      try {
+        return await Game.JoinGame(gameId)
+      } catch(err){
+        console.log(err)
+      }
+    },
+    async LeaveGame({ commit }, gameId){
+      try {
+        return await Game.LeaveGame(gameId)
+      } catch(err){
+        console.log(err)
       }
     }
   },

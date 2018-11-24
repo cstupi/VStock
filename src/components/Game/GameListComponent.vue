@@ -7,6 +7,10 @@
         :key="ugame.Id">
         <span>{{ ugame.Name }}</span>
         <span>{{ ugame.StartingValue }}</span>
+        <button
+          :disabled="loading"
+          @click="LeaveGame(ugame.Id)"
+        >Leave</button>
       </li>
     </ul>
     <div>Available</div>
@@ -16,7 +20,10 @@
         :key="agame.Id">
         <span>{{ agame.Name }}</span>
         <span>{{ agame.StartingValue }}</span>
-        <button>Join</button>
+        <button 
+          :disabled="loading == true"
+          @click="JoinGame(agame.Id)"
+        >Join</button>
       </li>
     </ul>
   </div>
@@ -29,7 +36,8 @@ export default {
   },
   data: function() {
     return {
-      gList: []
+      gList: [],
+      loading: false
     }
   },
   computed: {
@@ -37,6 +45,8 @@ export default {
       return this.$store.getters.userGames || []
     },
     allGames: function (){
+      if(Array.isArray(this.games) && this.gList)
+        return this.gList.filter(g => !this.games.some(ug => ug.Id == g.Id))
       return this.gList
     }
   },
@@ -46,10 +56,22 @@ export default {
   },
   methods: {
     async GetGames(){
-      this.$store.dispatch('GetGames')
+      await this.$store.dispatch('GetGames')
     },
     async GetAllGames(){
       this.gList = await this.$store.dispatch('GetAllGames')
+    },
+    async JoinGame(gameId){
+      this.loading = true
+      await this.$store.dispatch('JoinGame', gameId)
+      await this.GetGames()
+      this.loading = false
+    },
+    async LeaveGame(gameId){
+      this.loading = true
+      await this.$store.dispatch('LeaveGame', gameId)
+      await this.GetGames()
+      this.loading = false
     }
   }
 }
