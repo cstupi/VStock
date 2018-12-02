@@ -9,14 +9,14 @@ export async function Quote(symbol){
   throw `Error getting quote: ${res}`
 }
 export async function Historical(symbol){
-  let res = await axios.get(`${url}/api/historical/${symbol}`)
+  let res = await axios.get(`${url}/api/quote/historical/${symbol}`)
   if(res.status == 200)
     return res.data
   throw `Error getting historical data: ${res}`
 }
 
 export async function Search(symbol){
-  let res = await axios.get(`${url}/api/search/${symbol}`)
+  let res = await axios.get(`${url}/api/quote/search/${symbol}`)
   if(res.status == 200)
     return res.data
     throw `Error searching symbols: ${res}`

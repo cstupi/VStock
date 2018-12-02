@@ -3,9 +3,9 @@ import Router from 'vue-router'
 import store from './store'
 // Import login and register components
 import Home from './pages/Home.vue'
+import Game from './pages/Game.vue'
 import SignIn from './pages/SignIn.vue'
-import Register from './components/Register.vue'
-import Profile from './components/Profile.vue'
+import Trade from './pages/Trade.vue'
 
 
 Vue.use(Router)
@@ -18,14 +18,6 @@ let router = new Router({
       component: Home
     },
     {
-      path: 'register',
-      name: 'register',
-      component: Register,
-      meta: {
-        requiresAuth: false
-      }
-    },
-    {
       path: 'login',
       name: 'login',
       component: SignIn,
@@ -34,11 +26,19 @@ let router = new Router({
       }
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: Profile,
-      meta: {
-        requiresAuth: true
+      path: '/game/:id',
+      name: 'game',
+      component: Game,
+      props: {
+        id: false 
+      }
+    },
+    {
+      path: '/trade',
+      name: 'trade',
+      component: Trade,
+      props: {
+        id: false
       }
     }
   ]

@@ -41,10 +41,20 @@ export async function LeaveGame(gameId){
   if(res.status === 401)
     throw `Unauthenticated`
 }
+export async function ListAssets(gameId, userId){
+  let u = `${url}/api/game/${gameId}/portfolio`
+  if(userId)
+    u += `?user=${userId}`
+  let res = await axios.get(u)
+  if(res.status === 401)
+    throw `Unauthenticated`
+  return res.data
+}
 export default {
   ListGames,
   GetGame,
   CreateGame,
   JoinGame,
-  LeaveGame
+  LeaveGame,
+  ListAssets
 }

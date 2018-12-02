@@ -5,8 +5,10 @@
       <li 
         v-for="ugame in games"
         :key="ugame.Id">
-        <span>{{ ugame.Name }}</span>
-        <span>{{ ugame.StartingValue }}</span>
+        <div @click="ViewGame(ugame.Id)">
+          <span>{{ ugame.Name }}</span>
+          <span>{{ ugame.StartingValue }}</span>
+        </div>
         <button
           :disabled="loading"
           @click="LeaveGame(ugame.Id)"
@@ -29,7 +31,6 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 export default {
   props: {
 
@@ -72,6 +73,10 @@ export default {
       await this.$store.dispatch('LeaveGame', gameId)
       await this.GetGames()
       this.loading = false
+    },
+    ViewGame(gameId){
+      console.log('GameId:', gameId)
+      this.$router.push({ name: 'game', params: { id: gameId }})
     }
   }
 }

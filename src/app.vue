@@ -6,7 +6,6 @@
       </span>
       <span v-if="isLoggedIn"> 
         <router-link :to="{ name: 'home' }">Home</router-link> |
-        <router-link :to="{ name: 'profile' }">Profile</router-link> |
         <a @click="logout">Logout</a>
       </span>
     </div>

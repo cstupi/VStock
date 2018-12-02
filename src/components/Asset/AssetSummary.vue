@@ -1,7 +1,7 @@
 <template>
   <div class="game">
     <div>
-      {{ symbol }}
+      {{ currentSymbol }}
     </div>
     <div>
       Price: {{ current.price }}
@@ -13,7 +13,6 @@
 </template>
 <script>
 import AssetAPI from '../../api/asset'
-import { setInterval, clearTimeout } from 'timers';
 
 export default {
   props: {
@@ -37,18 +36,25 @@ export default {
       timer: {}
     }
   },
+  computed: {
+    currentSymbol: function() { this.UpdateTicker(this.symbol); return this.symbol }
+  },
   created(){
-    this.UpdateTicker();
-    this.timer = setInterval(function (){
-      this.UpdateTicker()
-    }.bind(this), 60000)
+    this.UpdateTicker()
+    // this.timer = setInterval(function (){
+    //   this.UpdateTicker()
+    // }.bind(this), 60000)
+  },
+  updated(){
   },
   beforeDestroy(){
-    clearTimeout(this.timer)
+    if(this.timer)
+      clearTimeout(this.timer)
   },
   methods: {
-    async UpdateTicker() {
-      this.current = await AssetAPI.Quote(this.symbol)
+    async UpdateTicker(symbol) {
+      if(symbol && symbol.length > 1)
+        this.current = await AssetAPI.Quote(symbol)
     }
   } 
 }
